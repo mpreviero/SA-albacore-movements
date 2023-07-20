@@ -1,4 +1,5 @@
 ###### Juveniles albacore #######
+
 # Random Forest models by month
 # Fig 4
 # organize data to export to Fig 5
@@ -13,7 +14,7 @@ require(plotmo)
 require (ModelMetrics)
 
 
-dsn <- "/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório"
+dsn <- "/home.../diretório"
 setwd(dsn)
 
 captura <-read.csv("captura_juv_adul.csv") %>%  as_tibble()
@@ -27,14 +28,13 @@ captura_juve <- na.omit(captura_juve)
 captura_juve <- captura_juve %>%  filter(kg_juvenis > 0)
 
 
-
 #  quarter information
 
 captura_juve <- captura_juve %>% #  filter(GeoStrata=="5x5") %>% 
-  mutate(quarter= case_when(month(Date_time)>=1 & month(Date_time)<4 ~"Quarter 1",
-                            month(Date_time)>=4 & month(Date_time)<7 ~"Quarter 2",
-                            month(Date_time)>=7 & month(Date_time)<10 ~"Quarter 3",
-                            month(Date_time)>=10 & month(Date_time)<=12 ~"Quarter 4"))
+      mutate(quarter= case_when(month(Date_time)>=1 & month(Date_time)<4 ~"Quarter 1",
+                                month(Date_time)>=4 & month(Date_time)<7 ~"Quarter 2",
+                               month(Date_time)>=7 & month(Date_time)<10 ~"Quarter 3",
+                             month(Date_time)>=10 & month(Date_time)<=12 ~"Quarter 4"))
 
 
 
@@ -52,6 +52,7 @@ capt_mes_9 <- captura_juve %>% filter(month(Date_time)==9)
 capt_mes_10 <- captura_juve %>% filter(month(Date_time)==10)
 capt_mes_11 <- captura_juve %>% filter(month(Date_time)==11)
 capt_mes_12 <- captura_juve %>% filter(month(Date_time)==12)
+
 
 # 2) Random Forest  Model ######################################################
 
@@ -147,6 +148,7 @@ resultadoRF <-predict( rfkg_2_4,test_2)
 rmse(resultadoRF,test_2$kg_juvenis) 
 mae(resultadoRF,test_2$kg_juvenis)  
 
+
 # mes 3
 set.seed(13)
 ind_3 <- sample(2, nrow(capt_mes_3), replace = TRUE, prob = c(0.7, 0.3))
@@ -180,7 +182,6 @@ resultadoRF <-predict( rfkg_3_3,test_3)
 
 rmse(resultadoRF,test_3$kg_juvenis) 
 mae(resultadoRF,test_3$kg_juvenis)  
-
 
 rfkg_3_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_3)
 print(rfkg_3_4)
@@ -225,7 +226,6 @@ resultadoRF <-predict( rfkg_4_3,test_4)
 rmse(resultadoRF,test_4$kg_juvenis)
 mae(resultadoRF,test_4$kg_juvenis)  
 
-
 rfkg_4_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_4)
 print(rfkg_4_4)
 plotres(rfkg_4_4)
@@ -269,10 +269,6 @@ resultadoRF <-predict( rfkg_5_3,test_5)
 rmse(resultadoRF,test_5$kg_juvenis)
 mae(resultadoRF,test_5$kg_juvenis)  
 
-rfkg_5_3_1 <-  randomForest(log(kg_juvenis) ~ SST_mean , data=  train_5)
-print(rfkg_5_3_1)
-
-
 rfkg_5_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_5)
 print(rfkg_5_4)
 plotres(rfkg_5_4)
@@ -315,7 +311,6 @@ resultadoRF <-predict( rfkg_6_3,test_6)
 
 rmse(resultadoRF,test_6$kg_juvenis) 
 mae(resultadoRF,test_6$kg_juvenis)  
-
 
 rfkg_6_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_6)
 print(rfkg_6_4)
@@ -402,7 +397,6 @@ resultadoRF <-predict( rfkg_8_3,test_8)
 rmse(resultadoRF,test_8$kg_juvenis)
 mae(resultadoRF,test_8$kg_juvenis) 
 
-
 rfkg_8_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_8)
 print(rfkg_8_4)
 plotres(rfkg_8_4)
@@ -454,7 +448,6 @@ rmse(resultadoRF,test_9$kg_juvenis)
 mae(resultadoRF,test_9$kg_juvenis) 
 
 
-
 # mes 10
 set.seed(10)
 ind_10 <- sample(2, nrow(capt_mes_10), replace = TRUE, prob = c(0.7, 0.3))
@@ -488,7 +481,6 @@ resultadoRF <-predict( rfkg_10_3,test_10)
 
 rmse(resultadoRF,test_10$kg_juvenis) 
 mae(resultadoRF,test_10$kg_juvenis)  
-
 
 rfkg_10_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_10)
 print(rfkg_10_4)
@@ -534,7 +526,6 @@ partialPlot(rfkg_11_3, train_11 , SST_mean,n.pt=100,rug=TRUE)
 rmse(resultadoRF,test_11$kg_juvenis) 
 mae(resultadoRF,test_11$kg_juvenis) 
 
-
 rfkg_11_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_11)
 print(rfkg_11_4)
 plotres(rfkg_11_4)
@@ -578,7 +569,6 @@ resultadoRF <-predict( rfkg_12_3,test_12)
 rmse(resultadoRF,test_12$kg_juvenis) 
 mae(resultadoRF,test_12$kg_juvenis)  
 
-
 rfkg_12_4 <-  randomForest(log(kg_juvenis) ~ SST_mean * Chlor_a, data=  train_12)
 print(rfkg_12_4)
 plotres(rfkg_12_4)
@@ -590,14 +580,10 @@ mae(resultadoRF,test_12$kg_juvenis)
 
 # 3) Rasterization #############################################################
 
-#Criar um data frame contendo Lat, Lon, SST média, Clorofila Média para cada mes. São 12 data frames ao todo.
-#(essa parte vai ser feita no script "prepara rasterização.R")
-#No QGIS: Importar o data frame como csv com Lat Lon e em seguida exportar como shapefile.
-#De volta no R: carregar pacote “raster” e abrir cada shapefile com a função shapefile().
 
 library(raster)
 ext <- extent(c(-60, 20, -45, 10))
-sst_clo_1 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_1.shp")
+sst_clo_1 <- shapefile("/home/.../ssta_clor_mes_1.shp")
 # rasterize points
 r1 <- raster(sst_clo_1, ncols=80, nrows=55) 
 raster_sst_clo_1 <- rasterize(sst_clo_1, r1, c('SST','clorofila'),  fun='first')
@@ -611,7 +597,7 @@ pg1_values_jan <- as.data.frame(pg1@data@values)
 names(pg1_values_jan) <-"predicted"
 
 
-sst_clo_2 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_2.shp")
+sst_clo_2 <- shapefile("/home/.../ssta_clor_mes_2.shp")
 # rasterize points
 r2 <- raster(sst_clo_2, ncols=80, nrows=55)
 raster_sst_clo_2 <- rasterize(sst_clo_2, r2, c('SST','clorofila'),  fun='first')
@@ -624,7 +610,7 @@ pg2_values_fev <- as.data.frame(pg2@data@values)
 names(pg2_values_fev) <-"predicted"
 
 
-sst_clo_3 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_3.shp")
+sst_clo_3 <- shapefile("/home/.../ssta_clor_mes_3.shp")
 # rasterize points
 r3 <- raster(sst_clo_3, ncols=80, nrows=55)
 raster_sst_clo_3 <- rasterize(sst_clo_3, r3, c('SST','clorofila'),  fun='first')
@@ -637,7 +623,7 @@ pg3_values_mar <- as.data.frame(pg3@data@values)
 names(pg3_values_mar) <-"predicted"
 
 
-sst_clo_4 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_4.shp")
+sst_clo_4 <- shapefile("/home/.../ssta_clor_mes_4.shp")
 # rasterize points
 r4 <- raster(sst_clo_4, ncols=80, nrows=55)
 raster_sst_clo_4 <- rasterize(sst_clo_4, r4, c('SST','clorofila'),  fun='first')
@@ -650,7 +636,7 @@ pg4_values_abr <- as.data.frame(pg4@data@values)
 names(pg4_values_abr) <-"predicted"
 
 
-sst_clo_5 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_5.shp")
+sst_clo_5 <- shapefile("/home/.../ssta_clor_mes_5.shp")
 # rasterize points
 r5 <- raster(sst_clo_5, ncols=80, nrows=55)
 raster_sst_clo_5 <- rasterize(sst_clo_5, r5, c('SST','clorofila'),  fun='first')
@@ -663,7 +649,7 @@ pg5_values_mai <- as.data.frame(pg5@data@values)
 names(pg5_values_mai) <-"predicted"
 
 
-sst_clo_6 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_6.shp")
+sst_clo_6 <- shapefile("/home/.../ssta_clor_mes_6.shp")
 # rasterize points
 r6 <- raster(sst_clo_6, ncols=80, nrows=55)
 raster_sst_clo_6 <- rasterize(sst_clo_6, r6, c('SST','clorofila'),  fun='first')
@@ -676,7 +662,7 @@ pg6_values_jun <- as.data.frame(pg6@data@values)
 names(pg6_values_jun) <-"predicted"
 
 
-sst_clo_7 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_7.shp")
+sst_clo_7 <- shapefile("/home/.../ssta_clor_mes_7.shp")
 # rasterize points
 r7 <- raster(sst_clo_7, ncols=80, nrows=55)
 raster_sst_clo_7 <- rasterize(sst_clo_7, r7, c('SST','clorofila'),  fun='first')
@@ -690,7 +676,7 @@ names(pg7_values_jul) <-"predicted"
 
 
 
-sst_clo_8 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_8.shp")
+sst_clo_8 <- shapefile("/home/.../ssta_clor_mes_8.shp")
 # rasterize points
 r8 <- raster(sst_clo_8, ncols=80, nrows=55)
 raster_sst_clo_8 <- rasterize(sst_clo_8, r8, c('SST','clorofila'),  fun='first')
@@ -702,7 +688,7 @@ plot(pg8, main='Random Forest')
 pg8_values_ago <- as.data.frame(pg8@data@values) 
 names(pg8_values_ago) <-"predicted"
 
-sst_clo_9 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_9.shp")
+sst_clo_9 <- shapefile("/home/.../ssta_clor_mes_9.shp")
 # rasterize points
 r9 <- raster(sst_clo_9, ncols=80, nrows=55)
 raster_sst_clo_9 <- rasterize(sst_clo_9, r9, c('SST','clorofila'),  fun='first')
@@ -716,7 +702,7 @@ names(pg9_values_set) <-"predicted"
 
 
 
-sst_clo_10 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_10.shp")
+sst_clo_10 <- shapefile("/home/.../ssta_clor_mes_10.shp")
 # rasterize points
 r10 <- raster(sst_clo_10, ncols=80, nrows=55)
 raster_sst_clo_10 <- rasterize(sst_clo_10, r10, c('SST','clorofila'),  fun='first')
@@ -729,7 +715,7 @@ pg10_values_out <- as.data.frame(pg10@data@values)
 names(pg10_values_out) <-"predicted"
 
 
-sst_clo_11 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_11.shp")
+sst_clo_11 <- shapefile("/home/.../ssta_clor_mes_11.shp")
 # rasterize points
 r11 <- raster(sst_clo_11, ncols=80, nrows=55)
 raster_sst_clo_11 <- rasterize(sst_clo_11, r11, c('SST','clorofila'),  fun='first')
@@ -742,7 +728,7 @@ pg11_values_nov <- as.data.frame(pg11@data@values)
 names(pg11_values_nov) <-"predicted"
 
 
-sst_clo_12 <- shapefile("/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles/ssta_clor_mes_12.shp")
+sst_clo_12 <- shapefile("/home/.../ssta_clor_mes_12.shp")
 # rasterize points
 r12 <- raster(sst_clo_12, ncols=80, nrows=55)
 raster_sst_clo_12 <- rasterize(sst_clo_12, r12, c('SST','clorofila'),  fun='first')
@@ -790,6 +776,7 @@ rdf <- rdf %>% mutate(nomes_mes = reorder(month.name[mes], mes))
 #write.csv(rdf, "randomforest_juvenis.csv", row.names = FALSE)
 
 # 4) Maps ######################################################################
+
 library(maps)
 library("rnaturalearth")
 library("rnaturalearthdata")
@@ -803,7 +790,7 @@ class(world)
 
 
 library(sf)
-capturas_alb_juv <-st_read(dsn = "/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório/shapefiles", layer= "maiores capturas ALB juvenis")
+capturas_alb_juv <-st_read(dsn = "/home/.../shapefiles", layer= "maiores capturas ALB juvenis")
 capturas_alb_juv <- capturas_alb_juv %>% 
   mutate(nomes_mes=reorder(month.name[mes], mes))
 

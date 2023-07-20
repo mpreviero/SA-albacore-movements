@@ -1,8 +1,8 @@
-# gráfico variacao da TSM, clorofila e captura por mês para as áreas de mairoes capturas
+# Figure 5
 
 library(tidyverse)
 
-dsn <- "/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório"
+dsn <- "/home/.../diretório"
 setwd(dsn)
 
 tab_uni_juve <-read.csv("randomforest_10%_juvenis.csv") %>%  as_tibble()
@@ -24,14 +24,13 @@ tab_uni_grp <- tab_uni_grp %>%
     values_to = "valor")
 
 
-
 tab_uni_org <- tab_uni %>%
                group_by(stage, mes) %>%  
                summarize(sd_sst= sd(SST), SST= mean(SST), "Chlor_a"= mean(Chlor),
                          "Pred_catches"=mean(predicted), SD_catches=sd(predicted), 
                           sd_chlor=sd(Chlor)) 
 
-# juvenile plots ################################################################
+# juveniles plots ################################################################
 
 tab_juvenile <- tab_uni_org %>%  filter(stage=="juvenile")
 
@@ -136,7 +135,6 @@ plot_catches_ad <- tab_adult %>%  mutate(lower=Pred_catches-SD_catches , upper=P
         axis.text.y = element_text(size=10))+
   ylim(7, 11)
 plot_catches_ad
-
 
 
 series_adults <- plot_catches_ad/plot_sst_ad/plot_chlor_ad

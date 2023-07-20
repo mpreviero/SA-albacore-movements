@@ -1,9 +1,11 @@
 ## Fig 2 plots 
+
 # calculates the average ALB size in (Task 2 sizes) by areas in the South Atlantic
 # convert captures to number of individuals and weight
 
 library(tidyverse)
-dsn <- "/home/usuario/Documentos/pesquisas/TRIATLAS/Paper 2 TRIATLAS/analises/diretório"
+
+dsn <- "/home/.../diretório"
 setwd(dsn)
 
 alb_sz <- read.csv("task2_sz_alb_paper2.csv")
