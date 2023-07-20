@@ -5,7 +5,7 @@
 
 library(tidyverse)
 
-dsn <- "/home/.../diretório"
+dsn <- "/home/.../diretório" 
 setwd(dsn)
 
 alb_sz <- read.csv("task2_sz_alb_paper2.csv")
