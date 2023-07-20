@@ -4,7 +4,7 @@ library(tidyverse)
 
 dsn <- "/home/.../diretório"
 setwd(dsn)
-
+ 
 tab_uni_juve <-read.csv("randomforest_10%_juvenis.csv") %>%  as_tibble()
 tab_uni_adul <-read.csv("randomforest_10%.csv") %>%  as_tibble()
 
