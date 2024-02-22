@@ -1,4 +1,4 @@
-###### Juveniles albacore #######
+###### Juveniles albacore ########
 
 # Random Forest models by month
 # Fig 4
